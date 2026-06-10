@@ -6,18 +6,18 @@
   <title>АНТИСКУФ — Авангард · 02.07.2026</title>
   <style>
     :root {
-      --bg:         #08122A;
-      --bg-card:    #0C1A32;
-      --bg-card-alt:#102038;
+      --bg:         #0D1835;
+      --bg-card:    #111F3B;
+      --bg-card-alt:#152742;
       --blue-deep:  #0B3880;
       --blue-mid:   #1A6ED2;
       --blue-light: #58AAEA;
       --blue-pale:  #A6D2F4;
-      --border:     rgba(26,110,210,0.22);
-      --border-hi:  rgba(88,170,234,0.45);
+      --border:     rgba(26,110,210,0.26);
+      --border-hi:  rgba(88,170,234,0.50);
       --text:       #E2EEFA;
-      --text-muted: #5A7B96;
-      --text-dim:   #2C4565;
+      --text-muted: #7298B4;
+      --text-dim:   #4A6885;
       --red:        #C03E3E;
     }
 
@@ -37,9 +37,9 @@
       content: '';
       position: fixed; inset: 0; pointer-events: none; z-index: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(15,55,160,0.38), transparent 55%),
-        radial-gradient(ellipse 55% 70% at 110%  5%, rgba(20,90,200,0.22), transparent 55%),
-        radial-gradient(ellipse 40% 40% at  -5% 88%, rgba(10,42,120,0.16), transparent 52%);
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(22,68,175,0.32), transparent 55%),
+        radial-gradient(ellipse 55% 70% at 110%  5%, rgba(28,98,210,0.20), transparent 55%),
+        radial-gradient(ellipse 40% 40% at  -5% 88%, rgba(18,52,140,0.14), transparent 52%);
     }
 
     /* ── NAV ─────────────────────────────────────── */
@@ -48,7 +48,7 @@
       height: 50px;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 40px;
-      background: rgba(6,12,24,0.80);
+      background: rgba(10,18,36,0.82);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
@@ -80,27 +80,65 @@
       padding: 50px 40px 60px;
     }
 
-    /* Фирменные квадраты — правая сторона, крупно */
-    .hero-sq {
+    /* Фирменные квадраты — живая графика */
+    @keyframes sqFloatA {
+      0%, 100% { translate: 0 0; }
+      50%      { translate: 18px -54px; }
+    }
+    @keyframes sqFloatB {
+      0%, 100% { translate: 0 0; }
+      50%      { translate: -22px 40px; }
+    }
+    @keyframes sqFloatC {
+      0%, 100% { translate: 0 0; }
+      50%      { translate: -14px 46px; }
+    }
+    @keyframes sqFloatD {
+      0%, 100% { translate: 0 0; }
+      50%      { translate: 20px -38px; }
+    }
+    @keyframes sqFloatE {
+      0%, 100% { translate: 0 0; scale: 1; }
+      50%      { translate: 0 -60px; scale: 1.04; }
+    }
+
+    /* Wrapper — позиционирование + параллакс (JS пишет transform сюда) */
+    .hero-sq-wrap {
       position: absolute;
       right: -80px; top: 50%;
-      transform: translateY(-52%);
-      width: clamp(380px, 52vw, 720px);
-      opacity: 0.32;
       pointer-events: none;
-      filter: saturate(0.80) brightness(1.0);
+      will-change: transform;
+    }
+    .hero-sq-ghost-wrap {
+      position: absolute;
+      left: -120px; bottom: -100px;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    /* Image — центрирование + float-анимация */
+    .hero-sq {
+      display: block;
+      width: clamp(380px, 52vw, 720px);
+      transform: translateY(-52%);
+      opacity: 0.48;
+      filter: saturate(0.85) brightness(1.08);
       user-select: none;
+      will-change: transform;
+      animation: sqFloatA 18s ease-in-out infinite;
+      animation-delay: -9s; /* стартует из пика: уже в верхней точке */
     }
     /* Призрак — левый нижний */
     .hero-sq-ghost {
-      position: absolute;
-      left: -120px; bottom: -100px;
+      display: block;
       width: clamp(240px, 28vw, 420px);
-      opacity: 0.09;
-      pointer-events: none;
+      opacity: 0.20;
       transform: rotate(180deg);
-      filter: saturate(0.4);
+      filter: saturate(0.5) brightness(1.1);
       user-select: none;
+      will-change: transform;
+      animation: sqFloatB 15s ease-in-out infinite;
+      animation-delay: -2s; /* небольшое смещение от hero-sq */
     }
 
     .hero-content {
@@ -114,7 +152,7 @@
     .hero-logo {
       width: clamp(220px, 38vw, 520px);
       height: auto;
-      display: block; margin: 0 auto 56px;
+      display: block; margin: 0 auto 40px;
       filter: saturate(0.9) brightness(1.4)
               drop-shadow(0 0 40px rgba(26,110,210,0.45));
     }
@@ -132,7 +170,7 @@
 
     .hero-sub {
       font-size: clamp(16px, 2.2vw, 21px);
-      color: var(--text-muted);
+      color: #91B3CA;
       line-height: 1.4; font-weight: 300;
       letter-spacing: 0.01em;
       margin-bottom: 28px;
@@ -140,7 +178,7 @@
 
     .hero-lead {
       font-size: clamp(14px, 1.65vw, 17px);
-      color: rgba(162,210,244,0.60);
+      color: rgba(162,210,244,0.72);
       line-height: 1.9; font-style: italic;
       max-width: 560px; text-align: center;
       margin-bottom: 56px;
@@ -152,7 +190,7 @@
       font-size: 10px; letter-spacing: 0.20em;
       color: var(--text-dim);
     }
-    .hero-meta span { color: rgba(88,170,234,0.50); }
+    .hero-meta span { color: rgba(88,170,234,0.68); }
 
 
     /* ── SECTION SHELL ───────────────────────────── */
@@ -297,23 +335,43 @@
 
     /* ── QUESTION SCREEN ─────────────────────────── */
     .question-screen {
-      min-height: 80vh;
+      min-height: 88vh;
       display: flex; align-items: center; justify-content: center;
       position: relative; overflow: hidden;
       padding: 80px 40px;
     }
     .qs-squares { position: absolute; inset: 0; pointer-events: none; }
     .qs-sq {
-      position: absolute; pointer-events: none; user-select: none;
-      filter: saturate(0.5);
+      display: block; pointer-events: none; user-select: none;
+    }
+    /* Wrappers для квадратов question-screen */
+    .qs-sq-1-wrap {
+      position: absolute; right: -90px; top: 50%;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .qs-sq-2-wrap {
+      position: absolute; left: -110px; bottom: 40px;
+      pointer-events: none;
+      will-change: transform;
     }
     .qs-sq-1 {
-      width: clamp(300px, 42vw, 580px); right: -80px; top: 50%;
-      transform: translateY(-52%); opacity: 0.07;
+      width: clamp(320px, 46vw, 640px);
+      transform: translateY(-52%);
+      opacity: 0.28;
+      filter: saturate(0.65) brightness(1.1);
+      will-change: transform;
+      animation: sqFloatC 20s ease-in-out infinite;
+      animation-delay: -10s; /* стартует из пика */
     }
     .qs-sq-2 {
-      width: clamp(180px, 22vw, 340px); left: -100px; bottom: 40px;
-      opacity: 0.05; transform: rotate(180deg);
+      width: clamp(200px, 26vw, 380px);
+      opacity: 0.17;
+      transform: rotate(180deg);
+      filter: saturate(0.55) brightness(1.08);
+      will-change: transform;
+      animation: sqFloatD 13s ease-in-out infinite;
+      animation-delay: -4s;
     }
     .qs-content {
       position: relative; z-index: 2;
@@ -321,15 +379,16 @@
       text-align: center; gap: 44px;
     }
     .qs-svg {
-      width: clamp(110px, 15vw, 190px);
+      width: clamp(180px, 28vw, 340px);
       height: auto; display: block;
-      filter: drop-shadow(0 0 60px rgba(26,110,210,0.40))
-              drop-shadow(0 0 24px rgba(88,170,234,0.25));
+      filter: drop-shadow(0 0 60px rgba(26,110,210,0.42))
+              drop-shadow(0 0 24px rgba(88,170,234,0.28))
+              brightness(1.08);
     }
     .qs-text {
       font-size: clamp(17px, 2.3vw, 26px);
       font-style: italic; font-weight: 300;
-      color: rgba(226,238,250,0.60); line-height: 1.55;
+      color: rgba(226,238,250,0.82); line-height: 1.55;
       max-width: 440px;
     }
     .qs-meta {
@@ -422,17 +481,25 @@
       align-items: center; justify-content: center;
       text-align: center; padding: 80px 40px;
       position: relative; overflow: hidden;
-      background: linear-gradient(180deg, var(--bg) 0%, #03091500 0%, #030913 55%, #020810 100%);
+      background: linear-gradient(180deg, var(--bg) 0%, transparent 0%, #081422 55%, #060E1A 100%);
     }
     /* Квадраты Авангарда — большой фоновый элемент */
-    .verdict-sq {
+    .verdict-sq-wrap {
       position: absolute;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      width: clamp(440px, 65vw, 860px);
-      opacity: 0.045;
+      inset: 0;
+      display: flex; align-items: center; justify-content: center;
       pointer-events: none;
+      will-change: transform;
+    }
+    .verdict-sq {
+      display: block;
+      width: clamp(440px, 65vw, 860px);
+      opacity: 0.14;
       user-select: none;
+      filter: saturate(0.7) brightness(1.12);
+      will-change: transform;
+      animation: sqFloatE 22s ease-in-out infinite;
+      animation-delay: -11s; /* стартует из пика */
     }
     .verdict-label {
       font-family: 'Courier New', monospace;
@@ -467,7 +534,14 @@
     .verdict-diag {
       font-family: 'Courier New', monospace;
       font-size: clamp(9px, 1.4vw, 13px); letter-spacing: 0.22em;
-      color: var(--blue-light); margin-bottom: 13px;
+      color: var(--blue-light); margin-bottom: 18px;
+      position: relative; z-index: 2;
+    }
+    .verdict-final {
+      font-family: 'Courier New', monospace;
+      font-size: clamp(10px, 1.2vw, 12px); letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
       position: relative; z-index: 2;
     }
     .verdict-sub {
@@ -509,13 +583,25 @@
     }
     .footer span {
       font-family: 'Courier New', monospace;
-      font-size: 9px; letter-spacing: 0.13em; color: var(--text-dim);
+      font-size: 9px; letter-spacing: 0.13em; color: var(--text-muted);
+    }
+
+    /* Лёгкий параллакс квадратов при скролле */
+    .sq-parallax { transition: transform 0.12s linear; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-sq, .hero-sq-ghost, .qs-sq-1, .qs-sq-2, .verdict-sq {
+        animation: none !important;
+      }
+      .sq-parallax { transition: none; }
     }
 
     /* ── RESPONSIVE ──────────────────────────────── */
     @media (max-width: 640px) {
       .hero { padding: 50px 20px 60px; }
-      .hero-sq { width: 260px; opacity: .14; right: -50px; }
+      .hero-sq-wrap { right: -50px; }
+      .hero-sq { width: 260px; opacity: .22; }
+      .qs-svg { width: clamp(150px, 42vw, 260px); }
       .section { padding: 64px 20px; }
       .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
       .stat-card { padding: 24px 20px 20px; }
@@ -545,8 +631,12 @@
 
   <!-- ══ HERO ══════════════════════════════════════ -->
   <section class="hero" id="top">
-    <img src="Лого/Avangard_Square_2023.png" alt="" class="hero-sq" aria-hidden="true">
-    <img src="Лого/Avangard_Square_2023.png" alt="" class="hero-sq-ghost" aria-hidden="true">
+    <div class="hero-sq-wrap sq-parallax" data-parallax="0.13" aria-hidden="true">
+      <img src="Лого/Avangard_Square_2023.png" alt="" class="hero-sq">
+    </div>
+    <div class="hero-sq-ghost-wrap sq-parallax" data-parallax="-0.09" aria-hidden="true">
+      <img src="Лого/Avangard_Square_2023.png" alt="" class="hero-sq-ghost">
+    </div>
 
     <div class="hero-content">
       <img src="Лого/Лого_прозрачный фон.png" alt="Авангард компания" class="hero-logo">
@@ -657,7 +747,7 @@
       </div>
       <div class="method-card fade-in">
         <div class="method-num">ЭТАП 04 · 19:00 ★</div>
-        <div class="method-title">Люди вечера</div>
+        <div class="method-title">Ключевые свидетели</div>
         <div class="method-desc">Живые герои коллектива. Без конкурсов. Без унижений. Только честные истории о людях.</div>
       </div>
       <div class="method-card fade-in">
@@ -687,8 +777,12 @@
   <div class="sep"></div>
   <section class="question-screen fade-in" id="question">
     <div class="qs-squares" aria-hidden="true">
-      <img src="Лого/Avangard_Square_2023.png" alt="" class="qs-sq qs-sq-1">
-      <img src="Лого/Avangard_Square_2023.png" alt="" class="qs-sq qs-sq-2">
+      <div class="qs-sq-1-wrap sq-parallax" data-parallax="0.11">
+        <img src="Лого/Avangard_Square_2023.png" alt="" class="qs-sq qs-sq-1">
+      </div>
+      <div class="qs-sq-2-wrap sq-parallax" data-parallax="-0.13">
+        <img src="Лого/Avangard_Square_2023.png" alt="" class="qs-sq qs-sq-2">
+      </div>
     </div>
     <div class="qs-content">
       <div class="qs-mark" aria-hidden="true">
@@ -779,7 +873,7 @@
         <div class="tl-time">19:00</div>
         <div class="tl-body">
           <div class="tl-stage">ЭТАП 4 · НОВЫЙ БЛОК</div>
-          <div class="tl-title">Люди вечера</div>
+          <div class="tl-title">Ключевые свидетели</div>
           <div class="tl-sub">Живые герои коллектива. Истории людей, которые знают ответ.</div>
         </div>
       </div>
@@ -862,7 +956,9 @@
   <!-- ══ VERDICT ════════════════════════════════════ -->
   <div class="sep"></div>
   <section class="verdict fade-in" id="verdict">
-    <img src="Лого/Avangard_Square_2023.png" alt="" class="verdict-sq" aria-hidden="true">
+    <div class="verdict-sq-wrap sq-parallax" data-parallax="0.07" aria-hidden="true">
+      <img src="Лого/Avangard_Square_2023.png" alt="" class="verdict-sq">
+    </div>
 
     <div class="verdict-label">ИТОГОВОЕ ЗАКЛЮЧЕНИЕ &nbsp;·&nbsp; ДЕЛО № А-2026-07 &nbsp;·&nbsp; 02.07.2026</div>
 
@@ -877,6 +973,7 @@
     </div>
 
     <div class="verdict-diag">ОФИЦИАЛЬНЫЙ ДИАГНОЗ УСТАНОВЛЕН</div>
+    <div class="verdict-final">Случай признан необратимым</div>
     <div class="verdict-sub">Без права на исправление &nbsp;·&nbsp; В силе бессрочно</div>
 
     <div class="stamp">
@@ -944,6 +1041,31 @@
           el.style.transitionDelay = (i * 0.055) + 's';
         });
       });
+    })();
+
+    /* Параллакс фирменных квадратов */
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var els = document.querySelectorAll('.sq-parallax[data-parallax]');
+      if (!els.length) return;
+      var ticking = false;
+      function update() {
+        els.forEach(function (el) {
+          var rate = parseFloat(el.getAttribute('data-parallax')) || 0;
+          /* Мерим img внутри wrapper — он уже включает centering-transform,
+             поэтому начальный offset близок к нулю для центрированных элементов */
+          var measured = el.querySelector('img') || el;
+          var rect = measured.getBoundingClientRect();
+          var center = rect.top + rect.height * 0.5 - window.innerHeight * 0.5;
+          var offset = center * rate;
+          el.style.transform = 'translateY(' + offset.toFixed(1) + 'px)';
+        });
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
+      update();
     })();
   </script>
 </body>
